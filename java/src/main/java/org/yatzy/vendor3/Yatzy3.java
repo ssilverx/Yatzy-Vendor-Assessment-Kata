@@ -3,7 +3,8 @@ package org.yatzy.vendor3;
 import org.yatzy.RollInput;
 import org.yatzy.YatzyCalculator;
 import org.yatzy.vendor3.category.Chance;
-import org.yatzy.vendor3.category.YatzyCategory;
+import org.yatzy.vendor3.category.Yatzy;
+import org.yatzy.vendor3.category.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,8 +16,9 @@ import java.util.stream.Collectors;
 
 public class Yatzy3 implements YatzyCalculator {
 
-    private final Map<String, Function<List<Integer>, ? extends YatzyCategory>> categories =
-            Map.of("chance", (dice) -> new Chance(dice));
+    private final Map<String, Function<List<Integer>, ? extends Category>> categories = Map.of(
+            "chance", (dice) -> new Chance(dice),
+            "yatzy", (dice) -> new Yatzy(dice));
 
     @Override
     public List<String> validCategories() {
@@ -38,14 +40,12 @@ public class Yatzy3 implements YatzyCalculator {
 
     @Override
     public int score(List<Integer> dice, String category) {
-        final Function<List<Integer>, ? extends YatzyCategory> function = this.categories.get(category);
+        final Function<List<Integer>, ? extends Category> function = this.categories.get(category);
         if (function != null) {
             return function.apply(dice).calculateScore();
         }
 
         switch (category) {
-            case "yatzy":
-                return this.yatzy(dice);
             case "ones":
                 return this.ones(dice);
             case "twos":
@@ -107,13 +107,6 @@ public class Yatzy3 implements YatzyCalculator {
 
     int sum(List<Integer> dice) {
         return dice.stream().mapToInt(Integer::intValue).sum();
-    }
-
-    public int yatzy(List<Integer> dice) {
-        if (this.frequencies(dice).containsValue(5)) {
-            return 50;
-        }
-        return 0;
     }
 
     public int ones(List<Integer> dice) {

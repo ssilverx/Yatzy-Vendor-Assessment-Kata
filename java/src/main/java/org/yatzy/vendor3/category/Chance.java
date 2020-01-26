@@ -26,7 +26,7 @@ package org.yatzy.vendor3.category;
 
 import java.util.List;
 
-public class Chance extends YatzyCategory {
+public class Chance extends Category {
 
     public Chance(List<Integer> dice) {
         super(dice);

@@ -24,13 +24,16 @@
 
 package org.yatzy.vendor3.category;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public abstract class YatzyCategory {
+public abstract class Category {
 
-    private List<Integer> dice;
+    private final List<Integer> dice;
 
-   YatzyCategory(List<Integer> dice) {
+    Category(List<Integer> dice) {
         this.dice = dice;
     }
 
@@ -42,5 +45,17 @@ public abstract class YatzyCategory {
 
     List<Integer> getDice() {
         return this.dice;
+    }
+
+    Map<Integer, Integer> frequencies(List<Integer> dice) {
+        final HashMap<Integer, Integer> frequencies = new HashMap<>();
+        for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
+            frequencies.put(i, 0);
+        }
+        for (int die : dice) {
+            frequencies.put(die, frequencies.get(die) + 1);
+        }
+
+        return frequencies;
     }
 }

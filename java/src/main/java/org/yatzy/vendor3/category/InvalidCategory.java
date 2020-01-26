@@ -26,7 +26,7 @@ package org.yatzy.vendor3.category;
 
 import java.util.List;
 
-public class InvalidCategory extends YatzyCategory {
+public class InvalidCategory extends Category {
 
     public InvalidCategory(List<Integer> dice) {
         super(dice);
