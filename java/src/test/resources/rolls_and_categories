@@ -14,4 +14,6 @@
 1,1,1,2,3 threeofakind
 1,1,1,1,2 fourofakind
 1,2,3,4,5 smallstraight
+1,2,3,4,4 smallstraight
 2,3,4,5,6 largestraight
+2,3,4,5,5 largestraight

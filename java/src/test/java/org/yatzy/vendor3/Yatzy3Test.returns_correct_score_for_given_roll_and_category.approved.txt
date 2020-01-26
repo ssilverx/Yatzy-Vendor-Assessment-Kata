@@ -14,4 +14,6 @@
 [1,1,1,2,3 threeofakind] => 3 
 [1,1,1,1,2 fourofakind] => 4 
 [1,2,3,4,5 smallstraight] => 15 
+[1,2,3,4,4 smallstraight] => 0 
 [2,3,4,5,6 largestraight] => 20 
+[2,3,4,5,5 largestraight] => 0 
