@@ -56,7 +56,7 @@ public class Yatzy3 implements YatzyCalculator {
                 return smallstraight(dice);
             case "largestraight":
                 return largestraight(dice);
-            case "fullhose":
+            case "fullhouse":
                 return fullhose(dice);
         }
         return -1;

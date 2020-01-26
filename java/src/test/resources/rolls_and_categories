@@ -15,5 +15,10 @@
 1,1,1,1,2 fourofakind
 1,2,3,4,5 smallstraight
 1,2,3,4,4 smallstraight
+2,3,4,5,6 smallstraight
 2,3,4,5,6 largestraight
 2,3,4,5,5 largestraight
+1,2,3,4,5 largestraight
+1,1,1,2,2 fullhouse
+1,2,3,4,5 fullhouse
+1,1,2,2,3 fullhouse
