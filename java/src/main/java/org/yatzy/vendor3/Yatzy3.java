@@ -101,7 +101,7 @@ public class Yatzy3 implements YatzyCalculator {
 
     public int yatzy(List<Integer> dice) {
         if (frequencies(dice).containsValue(5)) {
-            return sum(dice) + 50;
+            return 50;
         }
         return 0;
     }
