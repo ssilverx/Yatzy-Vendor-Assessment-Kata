@@ -24,6 +24,7 @@
 
 package org.yatzy.vendor3;
 
+import org.approvaltests.Approvals;
 import org.approvaltests.combinations.CombinationApprovals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,11 @@ public class Yatzy3Test {
     @BeforeEach
     void beforeEach() {
         this.calculator = new Yatzy3();
+    }
+
+    @Test
+    public void returns_all_valid_categories() throws Exception {
+        Approvals.verify(this.calculator.validCategories());
     }
 
     @Test

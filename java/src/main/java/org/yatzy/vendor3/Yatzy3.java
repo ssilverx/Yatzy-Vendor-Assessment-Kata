@@ -11,7 +11,7 @@ public class Yatzy3 implements YatzyCalculator {
     public List<String> validCategories() {
         return Arrays.asList("chance", "yatzy", "ones", "twos", "threes", "fours", "fives", "sixes",
                 "pair", "twopairs", "threeofakind", "fourofakind",
-                "smallstraight", "largestraight", "fullhose");
+                "smallstraight", "largestraight", "fullhouse");
     }
 
     @Override

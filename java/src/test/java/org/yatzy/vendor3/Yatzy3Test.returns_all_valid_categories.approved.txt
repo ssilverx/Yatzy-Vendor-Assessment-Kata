@@ -1,0 +1,1 @@
+[chance, yatzy, ones, twos, threes, fours, fives, sixes, pair, twopairs, threeofakind, fourofakind, smallstraight, largestraight, fullhouse]
