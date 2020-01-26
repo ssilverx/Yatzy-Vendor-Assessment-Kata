@@ -5,9 +5,10 @@ import org.yatzy.YatzyCalculator;
 import org.yatzy.vendor3.category.Category;
 import org.yatzy.vendor3.category.Chance;
 import org.yatzy.vendor3.category.FullHouse;
+import org.yatzy.vendor3.category.InvalidCategory;
 import org.yatzy.vendor3.category.LargeStraight;
-import org.yatzy.vendor3.category.Ones;
 import org.yatzy.vendor3.category.NumberOfAKind;
+import org.yatzy.vendor3.category.NumberOfN;
 import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.SmallStraight;
 import org.yatzy.vendor3.category.TwoPairs;
@@ -15,23 +16,32 @@ import org.yatzy.vendor3.category.Yatzy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class Yatzy3 implements YatzyCalculator {
 
-    private final Map<String, Function<List<Integer>, ? extends Category>> categories = Map.of(
-            "chance", (dice) -> new Chance(dice),
-            "yatzy", (dice) -> new Yatzy(dice),
-            "ones", (dice) -> new Ones(dice, 1),
-            "pair", (dice) -> new Pair(dice),
-            "twopairs", (dice) -> new TwoPairs(dice),
-            "threeofakind", (dice) -> new NumberOfAKind(dice, 3),
-            "fourofakind", (dice) -> new NumberOfAKind(dice, 4),
-            "smallstraight", (dice) -> new SmallStraight(dice),
-            "largestraight", (dice) -> new LargeStraight(dice),
-            "fullhouse", (dice) -> new FullHouse(dice));
+    private static final Map<String, Function<List<Integer>, ? extends Category>> CATEGORIES = new HashMap<>();
+
+    static {
+        CATEGORIES.put("chance", (dice) -> new Chance(dice));
+        CATEGORIES.put("yatzy", (dice) -> new Yatzy(dice));
+        CATEGORIES.put("ones", (dice) -> new NumberOfN(dice, 1));
+        CATEGORIES.put("twos", (dice) -> new NumberOfN(dice, 2));
+        CATEGORIES.put("threes", (dice) -> new NumberOfN(dice, 3));
+        CATEGORIES.put("fours", (dice) -> new NumberOfN(dice, 4));
+        CATEGORIES.put("fives", (dice) -> new NumberOfN(dice, 5));
+        CATEGORIES.put("sixes", (dice) -> new NumberOfN(dice, 6));
+        CATEGORIES.put("pair", (dice) -> new Pair(dice));
+        CATEGORIES.put("twopairs", (dice) -> new TwoPairs(dice));
+        CATEGORIES.put("threeofakind", (dice) -> new NumberOfAKind(dice, 3));
+        CATEGORIES.put("fourofakind", (dice) -> new NumberOfAKind(dice, 4));
+        CATEGORIES.put("smallstraight", (dice) -> new SmallStraight(dice));
+        CATEGORIES.put("largestraight", (dice) -> new LargeStraight(dice));
+        CATEGORIES.put("fullhouse", (dice) -> new FullHouse(dice));
+    }
 
     @Override
     public List<String> validCategories() {
@@ -53,39 +63,8 @@ public class Yatzy3 implements YatzyCalculator {
 
     @Override
     public int score(List<Integer> dice, String category) {
-        final Function<List<Integer>, ? extends Category> function = this.categories.get(category);
-        if (function != null) {
-            return function.apply(dice).calculateScore();
-        }
-
-        switch (category) {
-            case "twos":
-                return this.twos(dice);
-            case "threes":
-                return this.threes(dice);
-            case "fours":
-                return this.fours(dice);
-            case "fives":
-                return this.fives(dice);
-            case "sixes":
-                return this.sixes(dice);
-        }
-        return -1;
-    }
-
-    public int twos(List<Integer> dice) {
-        return Ones.numberFrequency(2, dice);
-    }
-    public int threes(List<Integer> dice) {
-        return Ones.numberFrequency(3, dice);
-    }
-    public int fours(List<Integer> dice) {
-        return Ones.numberFrequency(4, dice);
-    }
-    public int fives(List<Integer> dice) {
-        return Ones.numberFrequency(5, dice);
-    }
-    public int sixes(List<Integer> dice) {
-        return Ones.numberFrequency(6, dice);
+        return CATEGORIES.getOrDefault(category, (ignored) -> new InvalidCategory(ignored))
+                         .apply(dice)
+                         .calculateScore();
     }
 }
