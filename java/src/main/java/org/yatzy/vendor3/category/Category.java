@@ -39,6 +39,10 @@ public abstract class Category {
 
     public abstract int calculateScore();
 
+    List<Integer> getDice() {
+        return this.dice;
+    }
+
     int numberOfAKind(int number, List<Integer> dice) {
         final Map<Integer, Integer> frequencies = this.frequencies(dice);
         for (final int i : Arrays.asList(5, 4, 3, 2, 1)) {
@@ -59,10 +63,6 @@ public abstract class Category {
 
     int sum(List<Integer> dice) {
         return dice.stream().mapToInt(Integer::intValue).sum();
-    }
-
-    List<Integer> getDice() {
-        return this.dice;
     }
 
     Map<Integer, Integer> frequencies(List<Integer> dice) {

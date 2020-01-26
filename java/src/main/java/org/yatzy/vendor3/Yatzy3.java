@@ -9,7 +9,6 @@ import org.yatzy.vendor3.category.InvalidCategory;
 import org.yatzy.vendor3.category.LargeStraight;
 import org.yatzy.vendor3.category.NumberOfAKind;
 import org.yatzy.vendor3.category.NumberOfN;
-import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.SmallStraight;
 import org.yatzy.vendor3.category.TwoPairs;
 import org.yatzy.vendor3.category.Yatzy;
@@ -33,7 +32,7 @@ public class Yatzy3 implements YatzyCalculator {
         CATEGORIES.put("fours", (dice) -> new NumberOfN(dice, 4));
         CATEGORIES.put("fives", (dice) -> new NumberOfN(dice, 5));
         CATEGORIES.put("sixes", (dice) -> new NumberOfN(dice, 6));
-        CATEGORIES.put("pair", (dice) -> new Pair(dice));
+        CATEGORIES.put("pair", (dice) -> new NumberOfAKind(dice, 2));
         CATEGORIES.put("twopairs", (dice) -> new TwoPairs(dice));
         CATEGORIES.put("threeofakind", (dice) -> new NumberOfAKind(dice, 3));
         CATEGORIES.put("fourofakind", (dice) -> new NumberOfAKind(dice, 4));
