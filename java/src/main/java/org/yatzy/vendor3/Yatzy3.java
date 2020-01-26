@@ -138,7 +138,7 @@ public class Yatzy3 implements YatzyCalculator {
     }
 
     public int smallstraight(List<Integer> dice) {
-        if (isStraight(dice) && frequencies(dice).get(1) == 0) {
+        if (isStraight(dice) && frequencies(dice).get(6) == 0) {
             return sum(dice);
         }
         return 0;
