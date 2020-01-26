@@ -12,7 +12,7 @@ public class Yatzy2 implements YatzyCalculator {
     @Override
     public List<String> validCategories() {
         return Arrays.asList("chance", "yatzy", "ones", "twos", "threes", "fours", "fives", "sixes",
-                "pair", "twopairs", "threeofakind", "fourofakind",
+                "calculateScore", "twopairs", "threeofakind", "fourofakind",
                 "smallstraight", "largestraight", "fullhouse");
     }
 
@@ -46,7 +46,7 @@ public class Yatzy2 implements YatzyCalculator {
                 return new Yatzy2(dice.get(0), dice.get(1), dice.get(2), dice.get(3), dice.get(4)).fives();
             case "sixes":
                 return new Yatzy2(dice.get(0), dice.get(1), dice.get(2), dice.get(3), dice.get(4)).sizes();
-            case "pair":
+            case "calculateScore":
                 return score_pair(dice.get(0), dice.get(1), dice.get(2), dice.get(3), dice.get(4));
             case "twopairs":
                 return two_pair(dice.get(0), dice.get(1), dice.get(2), dice.get(3), dice.get(4));

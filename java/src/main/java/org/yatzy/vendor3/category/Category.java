@@ -37,6 +37,16 @@ public abstract class Category {
         this.dice = dice;
     }
 
+    public static int nofakind(int n, List<Integer> dice) {
+        final Map<Integer, Integer> frequencies = frequencies(dice);
+        for (int i : Arrays.asList(5,4,3,2,1)) {
+            if (frequencies.get(i) >= n) {
+                return i*n;
+            }
+        }
+        return 0;
+    }
+
     public abstract int calculateScore();
 
     int sum(List<Integer> dice) {
@@ -47,7 +57,7 @@ public abstract class Category {
         return this.dice;
     }
 
-    Map<Integer, Integer> frequencies(List<Integer> dice) {
+    static Map<Integer, Integer> frequencies(List<Integer> dice) {
         final HashMap<Integer, Integer> frequencies = new HashMap<>();
         for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
             frequencies.put(i, 0);

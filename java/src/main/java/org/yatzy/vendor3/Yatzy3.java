@@ -3,6 +3,7 @@ package org.yatzy.vendor3;
 import org.yatzy.RollInput;
 import org.yatzy.YatzyCalculator;
 import org.yatzy.vendor3.category.Chance;
+import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.Yatzy;
 import org.yatzy.vendor3.category.Category;
 
@@ -18,7 +19,8 @@ public class Yatzy3 implements YatzyCalculator {
 
     private final Map<String, Function<List<Integer>, ? extends Category>> categories = Map.of(
             "chance", (dice) -> new Chance(dice),
-            "yatzy", (dice) -> new Yatzy(dice));
+            "yatzy", (dice) -> new Yatzy(dice),
+            "pair", (dice) -> new Pair(dice));
 
     @Override
     public List<String> validCategories() {
@@ -58,8 +60,6 @@ public class Yatzy3 implements YatzyCalculator {
                 return this.fives(dice);
             case "sixes":
                 return this.sixes(dice);
-            case "pair":
-                return this.pair(dice);
             case "twopairs":
                 return this.twopairs(dice);
             case "threeofakind":
@@ -91,16 +91,6 @@ public class Yatzy3 implements YatzyCalculator {
         return this.frequencies(dice).get(number)*number;
     }
 
-    int nofakind(int n, List<Integer> dice) {
-        final Map<Integer, Integer> frequencies = this.frequencies(dice);
-        for (int i : Arrays.asList(5,4,3,2,1)) {
-            if (frequencies.get(i) >= n) {
-                return i*n;
-            }
-        }
-        return 0;
-    }
-
     boolean isStraight(List<Integer> dice) {
         return this.frequencies(dice).values().stream().filter(f -> f == 1).collect(Collectors.toList()).size() == 5;
     }
@@ -128,16 +118,12 @@ public class Yatzy3 implements YatzyCalculator {
         return this.numberFrequency(6, dice);
     }
 
-    public int pair(List<Integer> dice) {
-        return this.nofakind(2, dice);
-    }
-
     public int threeofakind(List<Integer> dice) {
-        return this.nofakind(3, dice);
+        return Category.nofakind(3, dice);
     }
 
     public int fourofakind(List<Integer> dice) {
-        return this.nofakind(4, dice);
+        return Category.nofakind(4, dice);
     }
 
     public int smallstraight(List<Integer> dice) {
