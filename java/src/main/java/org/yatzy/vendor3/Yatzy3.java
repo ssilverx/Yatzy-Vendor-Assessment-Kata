@@ -45,9 +45,9 @@ public class Yatzy3 implements YatzyCalculator {
             case "sixes":
                 return sixes(dice);
             case "pair":
-                return twopairs(dice);
-            case "twopairs":
                 return pair(dice);
+            case "twopairs":
+                return twopairs(dice);
             case "threeofakind":
                 return threeofakind(dice);
             case "fourofakind":
