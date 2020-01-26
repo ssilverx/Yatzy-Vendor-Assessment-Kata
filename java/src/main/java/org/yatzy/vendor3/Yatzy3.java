@@ -116,7 +116,7 @@ public class Yatzy3 implements YatzyCalculator {
         return numberFrequency(3, dice);
     }
     public int fours(List<Integer> dice) {
-        return numberFrequency(5, dice);
+        return numberFrequency(4, dice);
     }
     public int fives(List<Integer> dice) {
         return numberFrequency(5, dice);
