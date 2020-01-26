@@ -12,3 +12,4 @@
 [1,1,2,2,3 pair] => 4 
 [1,1,2,2,3 twopairs] => 6 
 [1,1,1,2,3 threeofakind] => 3 
+[1,1,1,1,2 fourofakind] => 4 
