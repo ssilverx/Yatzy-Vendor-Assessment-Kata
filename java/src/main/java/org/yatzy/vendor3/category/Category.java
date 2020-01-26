@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class Category {
 
@@ -47,9 +48,13 @@ public abstract class Category {
         return 0;
     }
 
+    public static boolean isStraight(List<Integer> dice) {
+        return frequencies(dice).values().stream().filter(f -> f == 1).collect(Collectors.toList()).size() == 5;
+    }
+
     public abstract int calculateScore();
 
-    int sum(List<Integer> dice) {
+    public static int sum(List<Integer> dice) {
         return dice.stream().mapToInt(Integer::intValue).sum();
     }
 
@@ -57,7 +62,7 @@ public abstract class Category {
         return this.dice;
     }
 
-    static Map<Integer, Integer> frequencies(List<Integer> dice) {
+    public static Map<Integer, Integer> frequencies(List<Integer> dice) {
         final HashMap<Integer, Integer> frequencies = new HashMap<>();
         for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
             frequencies.put(i, 0);

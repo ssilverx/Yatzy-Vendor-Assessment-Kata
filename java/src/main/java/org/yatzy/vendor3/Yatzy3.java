@@ -2,25 +2,25 @@ package org.yatzy.vendor3;
 
 import org.yatzy.RollInput;
 import org.yatzy.YatzyCalculator;
+import org.yatzy.vendor3.category.Category;
 import org.yatzy.vendor3.category.Chance;
 import org.yatzy.vendor3.category.Pair;
+import org.yatzy.vendor3.category.TwoPairs;
 import org.yatzy.vendor3.category.Yatzy;
-import org.yatzy.vendor3.category.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Yatzy3 implements YatzyCalculator {
 
     private final Map<String, Function<List<Integer>, ? extends Category>> categories = Map.of(
             "chance", (dice) -> new Chance(dice),
             "yatzy", (dice) -> new Yatzy(dice),
-            "pair", (dice) -> new Pair(dice));
+            "pair", (dice) -> new Pair(dice),
+            "twopairs", (dice) -> new TwoPairs(dice));
 
     @Override
     public List<String> validCategories() {
@@ -60,8 +60,6 @@ public class Yatzy3 implements YatzyCalculator {
                 return this.fives(dice);
             case "sixes":
                 return this.sixes(dice);
-            case "twopairs":
-                return this.twopairs(dice);
             case "threeofakind":
                 return this.threeofakind(dice);
             case "fourofakind":
@@ -75,28 +73,9 @@ public class Yatzy3 implements YatzyCalculator {
         }
         return -1;
     }
-    Map<Integer, Integer> frequencies(List<Integer> dice) {
-        final HashMap<Integer, Integer> frequencies = new HashMap<>();
-        for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
-            frequencies.put(i, 0);
-        }
-        for (int die : dice) {
-            frequencies.put(die, frequencies.get(die) + 1);
-        }
-
-        return frequencies;
-    }
 
     int numberFrequency(int number, List<Integer> dice) {
-        return this.frequencies(dice).get(number)*number;
-    }
-
-    boolean isStraight(List<Integer> dice) {
-        return this.frequencies(dice).values().stream().filter(f -> f == 1).collect(Collectors.toList()).size() == 5;
-    }
-
-    int sum(List<Integer> dice) {
-        return dice.stream().mapToInt(Integer::intValue).sum();
+        return Category.frequencies(dice).get(number)*number;
     }
 
     public int ones(List<Integer> dice) {
@@ -127,36 +106,23 @@ public class Yatzy3 implements YatzyCalculator {
     }
 
     public int smallstraight(List<Integer> dice) {
-        if (this.isStraight(dice) && this.frequencies(dice).get(6) == 0) {
-            return this.sum(dice);
+        if (Category.isStraight(dice) && Category.frequencies(dice).get(6) == 0) {
+            return Category.sum(dice);
         }
         return 0;
     }
 
     public int largestraight(List<Integer> dice) {
-        if (this.isStraight(dice) && this.frequencies(dice).get(1) == 0) {
-            return this.sum(dice);
+        if (Category.isStraight(dice) && Category.frequencies(dice).get(1) == 0) {
+            return Category.sum(dice);
         }
         return 0;
     }
 
-    public int twopairs(List<Integer> dice) {
-        final Map<Integer, Integer> frequencies = this.frequencies(dice);
-        int score = 0;
-        if (this.frequencies(dice).values().stream().filter(f -> f == 2).collect(Collectors.toList()).size() == 2) {
-            for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
-                if (frequencies.get(i) >= 2) {
-                    score += i*2;
-                }
-            }
-        }
-        return score;
-    }
-
     public int fullhouse(List<Integer> dice) {
-        final Map<Integer, Integer> frequencies = this.frequencies(dice);
+        final Map<Integer, Integer> frequencies = Category.frequencies(dice);
         if (frequencies.containsValue(2) && frequencies.containsValue(3)) {
-            return this.sum(dice);
+            return Category.sum(dice);
         }
         return 0;
     }
