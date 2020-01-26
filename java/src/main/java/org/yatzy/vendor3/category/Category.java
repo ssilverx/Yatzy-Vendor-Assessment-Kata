@@ -38,7 +38,7 @@ public abstract class Category {
         this.dice = dice;
     }
 
-    public static int nofakind(int n, List<Integer> dice) {
+    public static int numberOfAKind(int n, List<Integer> dice) {
         final Map<Integer, Integer> frequencies = frequencies(dice);
         for (int i : Arrays.asList(5,4,3,2,1)) {
             if (frequencies.get(i) >= n) {

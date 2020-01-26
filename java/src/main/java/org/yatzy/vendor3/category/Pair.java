@@ -9,6 +9,6 @@ public class Pair extends Category {
     }
 
     public int calculateScore() {
-        return nofakind(2, this.getDice());
+        return numberOfAKind(2, this.getDice());
     }
 }
