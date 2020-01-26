@@ -6,6 +6,7 @@ import org.yatzy.vendor3.category.Category;
 import org.yatzy.vendor3.category.Chance;
 import org.yatzy.vendor3.category.FullHouse;
 import org.yatzy.vendor3.category.LargeStraight;
+import org.yatzy.vendor3.category.Ones;
 import org.yatzy.vendor3.category.NumberOfAKind;
 import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.SmallStraight;
@@ -23,6 +24,7 @@ public class Yatzy3 implements YatzyCalculator {
     private final Map<String, Function<List<Integer>, ? extends Category>> categories = Map.of(
             "chance", (dice) -> new Chance(dice),
             "yatzy", (dice) -> new Yatzy(dice),
+            "ones", (dice) -> new Ones(dice, 1),
             "pair", (dice) -> new Pair(dice),
             "twopairs", (dice) -> new TwoPairs(dice),
             "threeofakind", (dice) -> new NumberOfAKind(dice, 3),
@@ -57,8 +59,6 @@ public class Yatzy3 implements YatzyCalculator {
         }
 
         switch (category) {
-            case "ones":
-                return this.ones(dice);
             case "twos":
                 return this.twos(dice);
             case "threes":
@@ -73,26 +73,19 @@ public class Yatzy3 implements YatzyCalculator {
         return -1;
     }
 
-    int numberFrequency(int number, List<Integer> dice) {
-        return Category.frequencies(dice).get(number)*number;
-    }
-
-    public int ones(List<Integer> dice) {
-        return this.numberFrequency(1, dice);
-    }
     public int twos(List<Integer> dice) {
-        return this.numberFrequency(2, dice);
+        return Ones.numberFrequency(2, dice);
     }
     public int threes(List<Integer> dice) {
-        return this.numberFrequency(3, dice);
+        return Ones.numberFrequency(3, dice);
     }
     public int fours(List<Integer> dice) {
-        return this.numberFrequency(4, dice);
+        return Ones.numberFrequency(4, dice);
     }
     public int fives(List<Integer> dice) {
-        return this.numberFrequency(5, dice);
+        return Ones.numberFrequency(5, dice);
     }
     public int sixes(List<Integer> dice) {
-        return this.numberFrequency(6, dice);
+        return Ones.numberFrequency(6, dice);
     }
 }
