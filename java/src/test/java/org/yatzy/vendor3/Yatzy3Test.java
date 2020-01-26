@@ -64,7 +64,7 @@ public class Yatzy3Test {
 
     private BufferedReader getBufferedReader() {
         final InputStream in = Objects.requireNonNull(
-                Yatzy3Test.class.getClassLoader().getResourceAsStream("valid_rolls_and_categories.csv"));
+                Yatzy3Test.class.getClassLoader().getResourceAsStream("rolls_and_categories"));
         return new BufferedReader(new InputStreamReader(in));
     }
 
