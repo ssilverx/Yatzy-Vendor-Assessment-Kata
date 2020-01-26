@@ -4,12 +4,11 @@ import org.yatzy.RollInput;
 import org.yatzy.YatzyCalculator;
 import org.yatzy.vendor3.category.Category;
 import org.yatzy.vendor3.category.Chance;
-import org.yatzy.vendor3.category.FourOfAKind;
 import org.yatzy.vendor3.category.FullHouse;
 import org.yatzy.vendor3.category.LargeStraight;
+import org.yatzy.vendor3.category.NumberOfAKind;
 import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.SmallStraight;
-import org.yatzy.vendor3.category.ThreeOfAKind;
 import org.yatzy.vendor3.category.TwoPairs;
 import org.yatzy.vendor3.category.Yatzy;
 
@@ -26,8 +25,8 @@ public class Yatzy3 implements YatzyCalculator {
             "yatzy", (dice) -> new Yatzy(dice),
             "pair", (dice) -> new Pair(dice),
             "twopairs", (dice) -> new TwoPairs(dice),
-            "threeofakind", (dice) -> new ThreeOfAKind(dice),
-            "fourofakind", (dice) -> new FourOfAKind(dice),
+            "threeofakind", (dice) -> new NumberOfAKind(dice, 3),
+            "fourofakind", (dice) -> new NumberOfAKind(dice, 4),
             "smallstraight", (dice) -> new SmallStraight(dice),
             "largestraight", (dice) -> new LargeStraight(dice),
             "fullhouse", (dice) -> new FullHouse(dice));
