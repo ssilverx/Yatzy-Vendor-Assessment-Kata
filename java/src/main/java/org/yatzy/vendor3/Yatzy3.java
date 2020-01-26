@@ -15,15 +15,14 @@ import org.yatzy.vendor3.category.TwoPairs;
 import org.yatzy.vendor3.category.Yatzy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class Yatzy3 implements YatzyCalculator {
 
-    private static final Map<String, Function<List<Integer>, ? extends Category>> CATEGORIES = new HashMap<>();
+    private static final Map<String, Function<List<Integer>, ? extends Category>> CATEGORIES = new LinkedHashMap<>();
 
     static {
         CATEGORIES.put("chance", (dice) -> new Chance(dice));
@@ -45,9 +44,7 @@ public class Yatzy3 implements YatzyCalculator {
 
     @Override
     public List<String> validCategories() {
-        return Arrays.asList("chance", "yatzy", "ones", "twos", "threes", "fours", "fives", "sixes",
-                "pair", "twopairs", "threeofakind", "fourofakind",
-                "smallstraight", "largestraight", "fullhouse");
+        return new ArrayList<>(CATEGORIES.keySet());
     }
 
     @Override
