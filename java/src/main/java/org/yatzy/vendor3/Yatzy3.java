@@ -4,6 +4,7 @@ import org.yatzy.RollInput;
 import org.yatzy.YatzyCalculator;
 import org.yatzy.vendor3.category.Category;
 import org.yatzy.vendor3.category.Chance;
+import org.yatzy.vendor3.category.FullHouse;
 import org.yatzy.vendor3.category.LargeStraight;
 import org.yatzy.vendor3.category.Pair;
 import org.yatzy.vendor3.category.SmallStraight;
@@ -24,7 +25,8 @@ public class Yatzy3 implements YatzyCalculator {
             "pair", (dice) -> new Pair(dice),
             "twopairs", (dice) -> new TwoPairs(dice),
             "smallstraight", (dice) -> new SmallStraight(dice),
-            "largestraight", (dice) -> new LargeStraight(dice));
+            "largestraight", (dice) -> new LargeStraight(dice),
+            "fullhouse", (dice) -> new FullHouse(dice));
 
     @Override
     public List<String> validCategories() {
@@ -68,8 +70,6 @@ public class Yatzy3 implements YatzyCalculator {
                 return this.threeofakind(dice);
             case "fourofakind":
                 return this.fourofakind(dice);
-            case "fullhouse":
-                return this.fullhouse(dice);
         }
         return -1;
     }
@@ -103,13 +103,5 @@ public class Yatzy3 implements YatzyCalculator {
 
     public int fourofakind(List<Integer> dice) {
         return Category.nofakind(4, dice);
-    }
-
-    public int fullhouse(List<Integer> dice) {
-        final Map<Integer, Integer> frequencies = Category.frequencies(dice);
-        if (frequencies.containsValue(2) && frequencies.containsValue(3)) {
-            return Category.sum(dice);
-        }
-        return 0;
     }
 }
