@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public abstract class Category {
 
@@ -38,23 +37,27 @@ public abstract class Category {
         this.dice = dice;
     }
 
-    public static int numberOfAKind(int n, List<Integer> dice) {
-        final Map<Integer, Integer> frequencies = frequencies(dice);
-        for (int i : Arrays.asList(5,4,3,2,1)) {
-            if (frequencies.get(i) >= n) {
-                return i*n;
+    public abstract int calculateScore();
+
+    int numberOfAKind(int number, List<Integer> dice) {
+        final Map<Integer, Integer> frequencies = this.frequencies(dice);
+        for (final int i : Arrays.asList(5, 4, 3, 2, 1)) {
+            if (frequencies.get(i) >= number) {
+                return i * number;
             }
         }
         return 0;
     }
 
-    public static boolean isStraight(List<Integer> dice) {
-        return frequencies(dice).values().stream().filter(f -> f == 1).collect(Collectors.toList()).size() == 5;
+    boolean isStraight(List<Integer> dice) {
+        return this.frequencies(dice)
+                   .values()
+                   .stream()
+                   .filter(f -> f == 1)
+                   .count() == 5;
     }
 
-    public abstract int calculateScore();
-
-    public static int sum(List<Integer> dice) {
+    int sum(List<Integer> dice) {
         return dice.stream().mapToInt(Integer::intValue).sum();
     }
 
@@ -62,12 +65,12 @@ public abstract class Category {
         return this.dice;
     }
 
-    public static Map<Integer, Integer> frequencies(List<Integer> dice) {
+    Map<Integer, Integer> frequencies(List<Integer> dice) {
         final HashMap<Integer, Integer> frequencies = new HashMap<>();
-        for (int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
+        for (final int i : Arrays.asList(6, 5, 4, 3, 2, 1)) {
             frequencies.put(i, 0);
         }
-        for (int die : dice) {
+        for (final int die : dice) {
             frequencies.put(die, frequencies.get(die) + 1);
         }
 

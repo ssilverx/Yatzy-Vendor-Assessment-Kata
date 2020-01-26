@@ -13,6 +13,6 @@ public class NumberOfN extends Category {
 
     @Override
     public int calculateScore() {
-        return Category.frequencies(this.getDice()).get(this.number) * this.number;
+        return this.frequencies(this.getDice()).get(this.number) * this.number;
     }
 }

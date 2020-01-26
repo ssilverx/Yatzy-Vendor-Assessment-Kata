@@ -10,8 +10,8 @@ public class LargeStraight extends Category {
 
     @Override
     public int calculateScore() {
-        if (Category.isStraight(this.getDice()) && Category.frequencies(this.getDice()).get(1) == 0) {
-            return Category.sum(this.getDice());
+        if (this.isStraight(this.getDice()) && this.frequencies(this.getDice()).get(1) == 0) {
+            return this.sum(this.getDice());
         }
         return 0;
     }

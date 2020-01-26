@@ -11,9 +11,9 @@ public class FullHouse extends Category {
 
     @Override
     public int calculateScore() {
-        final Map<Integer, Integer> frequencies = Category.frequencies(this.getDice());
+        final Map<Integer, Integer> frequencies = this.frequencies(this.getDice());
         if (frequencies.containsValue(2) && frequencies.containsValue(3)) {
-            return Category.sum(this.getDice());
+            return this.sum(this.getDice());
         }
         return 0;
     }

@@ -13,6 +13,6 @@ public class NumberOfAKind extends Category {
 
     @Override
     public int calculateScore() {
-        return Category.numberOfAKind(this.number, this.getDice());
+        return this.numberOfAKind(this.number, this.getDice());
     }
 }

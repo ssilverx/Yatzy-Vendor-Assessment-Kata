@@ -8,7 +8,8 @@ public class Pair extends Category {
         super(dice);
     }
 
+    @Override
     public int calculateScore() {
-        return numberOfAKind(2, this.getDice());
+        return this.numberOfAKind(2, this.getDice());
     }
 }
